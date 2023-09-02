@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-    <!-- Include Bootstrap CSS -->
+   
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Use Thymeleaf to iterate through the list of customers -->
+                
                 <tr th:each="customer : ${customers}">
                     <td th:text="${customer.firstName}"></td>
                     <td th:text="${customer.lastName}"></td>
@@ -44,7 +44,7 @@
         </table>
     </div>
 
-    <!-- Include Bootstrap JS and jQuery from a CDN -->
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

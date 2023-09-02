@@ -16,8 +16,8 @@ import com.apitask.model.Customer;
 import com.apitask.model.LoginRequest;
 import com.apitask.repositories.CustomerRepo;
 import com.apitask.repositories.LoginRequestRepository;
-import com.apitask.service.AuthenticationService;
-import com.apitask.service.CustomAuthenticationException;
+
+
 
 
 
@@ -41,16 +41,16 @@ public class HomeController {
 	public String authenticateUser(Model model,String loginid, String password, LoginRequest loginRequest) {
 		LoginRequest user = loginRequestRepository.findByLoginId(loginid);
 		if (loginRequest != null && user.getPassword().equals(password)) {
-	        //String bearerToken = authenticationService.authenticateUser(loginRequest);
+	        
 			String bearerToken="token1234";
-	        // Store the bearer token securely for subsequent API calls
+	        
 	        token=bearerToken;
-	        // Redirect to another page after successful login
+	        
 	        return "redirect:/dashboard";
 		} else {
-	        // Handle authentication failure, e.g., show an error message
+	        
 	        model.addAttribute("error", "Authentication failed");
-	        return "home"; // Return to the login page with an error message
+	        return "home"; 
 		}
 	}
 	@GetMapping("/dashboard")
@@ -62,14 +62,14 @@ public class HomeController {
 	
 	@PostMapping("/savecustomer")
     public String saveCustomer(@ModelAttribute Customer customer) {
-        // Implement saving customer logic here using the customerService
+        
         customerRepo.save(customer);    
-        return "redirect:/dashboard"; // Redirect back to the dashboard page
+        return "redirect:/dashboard";
     }
 	@GetMapping("/newcustomer")
     public String showNewCustomerForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "newcustomer"; // Return the name of your new customer HTML file
+        return "newcustomer"; 
     }
 	@GetMapping("/editcustomer/{id}")
     public String showEditCustomerForm(@PathVariable Long id, Model model) {
@@ -83,14 +83,14 @@ public class HomeController {
     }
 	@PostMapping("/updatecustomer")
     public String updateCustomer(@ModelAttribute Customer customer) {
-		// 1. Retrieve the existing customer from the database by ID
+		
 	    Optional<Customer> optionalCustomer = Optional.of(customerRepo.findByFirstName(customer.getFirstName()));
 
 	    if (optionalCustomer.isPresent()) {
-	        // 2. Get the existing customer
+	        
 	        Customer existingCustomer = optionalCustomer.get();
 
-	        // 3. Update the customer's fields with the new data
+	        
 	        existingCustomer.setFirstName(customer .getFirstName());
 	        existingCustomer.setLastName(customer.getLastName());
 	        existingCustomer.setAddress(customer.getAddress());
@@ -99,14 +99,12 @@ public class HomeController {
 	        existingCustomer.setEmail(customer.getEmail());
 	        existingCustomer.setPhone(customer.getPhone());
 
-	        // Save the updated customer back to the database
+	        
 	        customerRepo.save(existingCustomer);
 
-	        // Redirect back to the dashboard page
 	        return "redirect:/dashboard";
 	    } else {
-	        // Handle the case where the customer with the specified ID is not found
-	        // You can show an error message or redirect to an error page
+	        
 	        return "redirect:/error";
 	    }
          
